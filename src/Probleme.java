@@ -33,18 +33,7 @@ public class Probleme {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	public List<Tache> getTaches() {
 		return taches;
