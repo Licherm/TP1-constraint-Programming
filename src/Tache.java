@@ -46,5 +46,9 @@ public class Tache {
 	public List<Integer> getInterditValue(){
 		return this.interditValue;
 	}
+	
+	public String toString(){
+		return "attribuer à la machine "+value+"\n";
+	}
 
 }

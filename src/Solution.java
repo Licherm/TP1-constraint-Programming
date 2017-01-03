@@ -7,9 +7,9 @@ public class Solution {
 	private int num;
 	private List<Tache> taches = new ArrayList<Tache>();
 	
-	public Solution(int num, ArrayList<Tache> taches){
+	public Solution(int num, List<Tache> taches2){
 		this.num=num;
-		this.taches=taches;
+		this.taches=taches2;
 	}
 	
 	
@@ -26,6 +26,11 @@ public class Solution {
 		this.taches = taches;
 	}
 	
-	
+	public String toString(){
+		int compteur;
+		String affichage="Solution numéro : " ;
+		
+		return affichage;
+	}
 	
 }

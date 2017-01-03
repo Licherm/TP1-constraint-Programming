@@ -8,8 +8,14 @@ public class Probleme {
 	private List<Integer> machines = new ArrayList<Integer>();
 	private List<Solution> solutions = new ArrayList<Solution>();
 	
-	public Probleme (ArrayList<Integer> machines){
+	public Probleme (List<Integer> machines){
 		this.machines=machines;
+	}
+	
+	public Probleme(List<Tache> taches,List<Integer> machines,List<Solution> solutions){
+		this.taches=taches;
+		this.machines=machines;
+		this.solutions=solutions;
 	}
 	
 	
@@ -21,19 +27,11 @@ public class Probleme {
 		this.machines.remove(machine);
 	}
 	
-	
-	//Reslotion v1
-	public void Resolution(int compteur){
-		boolean verif;
-		if(compteur<this.taches.size()){
-			
-			for (int i=0;i<this.machines.size();++i){
-				verif=this.taches.get(compteur).setValue(this.machines.get(i));	// verif regarde si l'attribution est valide
-			}
-		}
+	public void addSolution( Solution solution){
+		this.solutions.add(solution);
 	}
 	
-
+	
 	
 	public List<Tache> getTaches() {
 		return taches;
@@ -54,5 +52,43 @@ public class Probleme {
 		this.solutions = solutions;
 	}
 	
+	
+	
+	//---------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------
+		
+		//Reslotion v1
+	public void Resolution(int compteur,Probleme probleme){
+		boolean verif;
+		boolean verif2=true;
+		ArrayList<Integer> listMachines= new ArrayList<Integer>();
+		if(compteur<this.taches.size()){
+				
+			for (int i=0;i<this.machines.size();++i){
+				verif=this.taches.get(compteur).setValue(this.machines.get(i));	// verif regarde si l'attribution est valide
+				if (verif){
+					for(int j=0;j<this.taches.size();j++){
+						if(!(this.taches.get(i).assigne())){
+							verif2=false; // False si au moins 1 des taches n'est pas encore assigner
+						}
+					}
+					if(verif2){
+						Solution solution = new Solution(this.solutions.size()+1,this.taches);
+						probleme.addSolution(solution);
+					}else{
+						listMachines.addAll(this.machines);
+						listMachines.remove(i);
+						Probleme problemModifie= new Probleme(this.taches,listMachines,this.solutions);
+						++compteur;
+						// Recursivité
+						problemModifie.Resolution(compteur,this);
+					}
+				}
+				verif2=true;
+			}
+		}
+	}
+
 	
 }
